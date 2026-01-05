@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Home -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <h1>Formulario de registro</h1>
+    <p>Por favor, complete el siguiente formulario:</p>
+    
+    <!-- Formulario de registro -->
+    <form action="/submit" method="post">
+        <label for="tipo">Tipo:</label><br>
+        <select id="tipo" name="tipo" required><br><br>
+            <option value="opcion1">Cedula de ciudadania</option>
+            <option value="opcion2">Cedula extrangera</option>
+        </select><br>><br>
+
+        <label for="documento">Numero Documento:</label><br>
+        <input type="text" id="documento" name="documento" required><br><br>
+
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="Edad">Edad:</label><br>
+        <input type="number" id="Edad" name="Edad" required><br><br>
+
+        <label for="genero">Genero:</label><br>
+        <select id="genero" name="genero" required><br><br>
+            <option value="opcion1">Masculino</option>
+            <option value="opcion2">Femenino</option>
+            <option value="opcion3">Prefiero no decirlo</option>
+        </select><br><br>
+
+        <!--mercancia (Multiselect)-->
+        <label for="mercancia">Tipo de mercancia que desea transportar</label><br>
+        <select id="mercancia" name="mercancia" required><br><br>
+            <option value="opcion1">Frajil</option>
+            <option value="opcion2">general</option>
+            <option value="opcion3">granel</option>
+            <option value="opcion4">peligroso</option>
+            <option value="opcion5">perecederas</option>
+        </select><br><br>
+
+        <!--coordenadas-->
+        <input type="hidden" id="latitud" name="latitud">
+        <input type="hidden" id="longitud" name="longitud">
+
+        <!-- Botón de envío -->
+        <input type="submit" value="Enviar">
+    </form>
+    <script>
+        // Obtener la ubicación del usuario
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('latitud').value = position.coords.latitude;
+                document.getElementById('longitud').value = position.coords.longitude;
+            });
+        } else {
+            console.log("La geolocalización no es compatible con este navegador.");
+        }
+    </script>
+</body>
+</html>
