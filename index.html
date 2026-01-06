@@ -9,14 +9,14 @@
 <body>
     <h1>Formulario de registro</h1>
     <p>Por favor, complete el siguiente formulario:</p>
-    
+
     <!-- Formulario de registro -->
-    <form action="/submit" method="post">
+    <form id="formulario">
         <label for="tipo">Tipo:</label><br>
         <select id="tipo" name="tipo" required><br><br>
             <option value="opcion1">Cedula de ciudadania</option>
             <option value="opcion2">Cedula extrangera</option>
-        </select><br>><br>
+        </select><br><br>
 
         <label for="documento">Numero Documento:</label><br>
         <input type="text" id="documento" name="documento" required><br><br>
@@ -34,22 +34,29 @@
             <option value="opcion3">Prefiero no decirlo</option>
         </select><br><br>
 
-        <!--mercancia (Multiselect)-->
+        <!--mercancia (checkbox) escogi esta dado que para mi es mas funcional-->
         <label for="mercancia">Tipo de mercancia que desea transportar</label><br>
-        <select id="mercancia" name="mercancia" required><br><br>
+        <input type="checkbox" id="mercancia1" name="mercancia[]" value="general">general<br>
+        <input type="checkbox" id="mercancia2" name="mercancia[]" value="granel">granel<br>
+        <input type="checkbox" id="mercancia3" name="mercancia[]" value="fragil">frágil<br>
+        <input type="checkbox" id="mercancia4" name="mercancia[]" value="perecederas">perecederas<br><br>
+
+        <!--mercancia (Multiselect)
+        <label for="mercancia">Tipo de mercancia que desea transportar</label><br>
+        <select id="mercancia" name="mercancia[]" multiple required><br><br>
             <option value="opcion1">Frajil</option>
             <option value="opcion2">general</option>
             <option value="opcion3">granel</option>
             <option value="opcion4">peligroso</option>
             <option value="opcion5">perecederas</option>
-        </select><br><br>
+        </select><br><br>-->
 
         <!--coordenadas-->
         <input type="hidden" id="latitud" name="latitud">
         <input type="hidden" id="longitud" name="longitud">
 
         <!-- Botón de envío -->
-        <input type="submit" value="Enviar">
+        <button type="submit" value="Enviar">
     </form>
     <script>
         // Obtener la ubicación del usuario
@@ -62,5 +69,7 @@
             console.log("La geolocalización no es compatible con este navegador.");
         }
     </script>
+    <script src="validaciones/app.js"></script>
+
 </body>
 </html>
