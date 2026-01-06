@@ -1,5 +1,4 @@
 <?php
-echo "entro a php";
 //peticion si sea post
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     //obtener datos del formulario
@@ -18,7 +17,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         echo json_encode(['error' => 'Faltan datos obligatorios.']);
         exit;
     }
-echo "paso las validaciones";
     //procesar datos (aqui puedes guardar en base de datos o realizar otras acciones)
     $conexion = new mysqli('localhost', 'root', '', 'prueba');
     if ($conexion->connect_error) { 
@@ -26,7 +24,6 @@ echo "paso las validaciones";
         echo json_encode(['error' => 'Error de conexion a la base de datos.']);
         exit;
     }   
-echo "paso la conexion";
 
     //Verificar si el documento ya existe
     $sql="SELECT id FROM usuario WHERE tipo = ? AND documento = ?";
@@ -39,14 +36,15 @@ echo "paso la conexion";
         echo json_encode(['error' => 'El documento ya existe.']);
         exit;
     }
-echo "paso la verificacion";
     //Insertar nuevo usuario
     $sql = "INSERT INTO usuario (tipo, documento, nombre, edad, genero, mercancia, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $consulta = $conexion->prepare($sql);
+    if(!$consulta){
+        die("error en la preparacion: " . $conexion->error);
+    }
     $mercancia_json = json_encode($mercancia);
     $consulta = $conexion->prepare($sql);
-    if (!$consulta) {
-    die("Error en prepare(): " . $conexion->error);
-}
+
     $consulta->bind_param('ssssssss', $tipo, $documento, $nombre, $edad, $genero, $mercancia_json, $latitud, $longitud);
     //Si hay un error al agregar al usuario
     if($consulta->execute()){

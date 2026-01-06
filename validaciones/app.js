@@ -1,5 +1,4 @@
 document.getElementById('formulario').addEventListener('submit', function(event) {
-    alert('Submit detectado');
     event.preventDefault(); // Evita el envío del formulario por defecto
     //captura de datos 
     const tipo = document.getElementById('tipo').value;
@@ -37,7 +36,6 @@ document.getElementById('formulario').addEventListener('submit', function(event)
         alert('Por favor, seleccione al menos un tipo de mercancia.');
         return;
     }   
-    alert('Validaciones pasadas correctamente. Enviando formulario...');
     //preparacion de datos para envio
     let formData = new FormData();
     formData.append('tipo', tipo);
@@ -49,22 +47,9 @@ document.getElementById('formulario').addEventListener('submit', function(event)
     formData.append('latitud', latitud);
 
     formData.append('longitud', longitud);
-    alert('ANTES DEL FETCH');
+  
 
-fetch('../prueba-tecnica-SDW/controladores/controlador.php', {
-    method: 'POST',
-    body: formData
-})
-.then(response => response.text())
-.then(data => {
-    alert('FETCH OK');
-})
-.catch(error => {
-    alert('ERROR EN FETCH');
-});
-
-    /**envio de datos con ajax. 
-    fetch('controladores/controlador.php', {     
+    fetch('../prueba-tecnica-SDW/controladores/controlador.php', {   
         method: 'POST',
         body: formData
     })
@@ -72,9 +57,10 @@ fetch('../prueba-tecnica-SDW/controladores/controlador.php', {
     .then(data => {
         console.log('Success:', data);
         alert('Formulario enviado correctamente.');
+        document.getElementById('formulario').reset();
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Hubo un error al enviar el formulario.');
-    });  **/   
+    });
 });
